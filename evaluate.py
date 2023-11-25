@@ -30,11 +30,11 @@ def val(cfg, model=None):
     if model:  # This is for testing during training.
         generator = model
         if cfg.generator == 'transanormaly':
-            generator = TransAnomaly(batch_size=cfg.batch_size, num_frames=4).cuda()
+            generator = TransAnomaly(batch_size=1, num_frames=4).cuda()
         generator.eval()
     else:
         if cfg.generator == 'transanormaly':
-            generator = TransAnomaly(batch_size=4, num_frames=4).cuda().eval()
+            generator = TransAnomaly(batch_size=1, num_frames=4).cuda().eval()
         else:
             generator = UNet(input_channels=12, output_channel=3).cuda().eval()
         generator.load_state_dict(torch.load('weights/' + cfg.trained_model)['net_g'])
